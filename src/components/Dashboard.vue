@@ -1,11 +1,11 @@
-<template>
+<template lang="">
   <div>
-    <h1>Auth</h1>
+    <h2>dashboard</h2>
   </div>
 </template>
 <script>
 export default {
-  name: "AuthLayout",
+  name: "home-dashboard",
 };
 </script>
 <style lang=""></style>
