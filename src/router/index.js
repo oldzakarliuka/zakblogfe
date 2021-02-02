@@ -64,6 +64,10 @@ const routes = [
         meta: {
           protected: true,
         },
+        beforeEnter: (to, from, next) => {
+          if (!store.getters.getEditPost) next("/");
+          else next();
+        },
       },
     ],
   },

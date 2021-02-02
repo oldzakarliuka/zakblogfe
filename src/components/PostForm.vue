@@ -14,7 +14,7 @@
       <div class="form__group">
         <Editor
           class="editor"
-          :modelValue="content"
+          :value="content"
           @update:modelValue="content = $event"
         />
         <div class="thumb">
@@ -52,7 +52,7 @@ export default {
     ttl: String,
     cntnt: String,
     thmb: String,
-    postId: Number,
+    pstId: Number,
   },
   data() {
     return {
@@ -60,14 +60,17 @@ export default {
       content: this.cntnt,
       file: this.thmb,
       title: this.ttl,
+      postId: null,
     };
   },
   mounted() {
     if (this.$route.params.id) {
       const post = this.getEditPost;
+      console.log(post.content);
       this.content = post.content;
       this.file = post.thumb;
       this.title = post.title;
+      this.postId = post.id;
     }
   },
   methods: {
