@@ -6,7 +6,9 @@ export default ({ requiresAuth = false } = {}) => {
   options.baseURL = "https://whyzakblog.herokuapp.com/v1";
 
   if (requiresAuth) {
-    options.headers.Authorization = TokenService.getToken();
+    options.headers = {
+      Authorization: `Bearer ${TokenService.getToken()}`,
+    };
   }
   const instance = axios.create(options);
 
@@ -15,6 +17,9 @@ export default ({ requiresAuth = false } = {}) => {
       return response.data;
     },
     (error) => {
+      if (error.response.status === 401) {
+        TokenService.removeToken();
+      }
       return Promise.reject(error);
     }
   );

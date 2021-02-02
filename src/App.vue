@@ -12,9 +12,6 @@ export default {
   methods: {
     ...mapActions(["fetchPosts"]),
   },
-  mounted() {
-    this.fetchPosts("hello wrold");
-  },
   computed: {
     ...mapGetters([
       "getPosts",

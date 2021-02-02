@@ -1,11 +1,12 @@
 import { createStore } from "vuex";
-import { PICK_POST, UPDATE_POSTS } from "./mutations";
+import { PICK_EDIT_POST, PICK_POST, UPDATE_POSTS } from "./mutations";
 
 const store = createStore({
   state() {
     return {
       posts: [],
       selectedPost: null,
+      editPost: null,
     };
   },
   mutations: {
@@ -15,6 +16,9 @@ const store = createStore({
     [PICK_POST](state, post) {
       state.post = post;
     },
+    [PICK_EDIT_POST](state, post) {
+      state.editPost = post;
+    },
   },
   getters: {
     getPosts: (state) => {
@@ -23,17 +27,16 @@ const store = createStore({
     getSelectedPost: (state) => {
       return state.post;
     },
+    getPostById: (id) => {
+      return (state) => state.posts.find((post) => post.id === id);
+    },
+    getEditPost: (state) => {
+      return state.editPost;
+    },
   },
   actions: {
     fetchPosts({ commit }, payload) {
-      console.log(payload);
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          const payload = [1, 2, 3];
-          commit(UPDATE_POSTS, payload);
-          resolve();
-        }, 1000);
-      });
+      commit(UPDATE_POSTS, payload);
     },
   },
 });
