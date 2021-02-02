@@ -36,7 +36,7 @@ export default {
       }
     },
     deletePost(id) {
-      api()
+      api({ requiresAuth: true })
         .delete(`post/${id}`, { crossdomain: true })
         .then(() => {
           const posts = this.getPosts.filter((post) => post.id !== id);

@@ -9,6 +9,7 @@ import AdminLayout from "../layout/admin.vue";
 import HomeLayout from "../layout/home.vue";
 import NotFound from "../layout/notfound.vue";
 import TokenService from "../service/storage.service";
+import store from "../store";
 
 const redirectToAdminDashboard = (to, from, next) => {
   if (TokenService.getToken()) {
@@ -22,7 +23,14 @@ const routes = [
     component: HomeLayout,
     children: [
       { path: "", component: HomeDashboard },
-      { path: "post/:id", component: Post },
+      {
+        path: "post/:id",
+        component: Post,
+        beforeEnter: (to, from, next) => {
+          if (!store.getters.getSelectedPost) next("/");
+          else next();
+        },
+      },
     ],
   },
   {
