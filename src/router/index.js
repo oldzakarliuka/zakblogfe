@@ -8,6 +8,14 @@ import PostForm from "../components/PostForm.vue";
 import AdminLayout from "../layout/admin.vue";
 import HomeLayout from "../layout/home.vue";
 import NotFound from "../layout/notfound.vue";
+import TokenService from "../service/storage.service";
+
+const redirectToAdminDashboard = (to, from, next) => {
+  if (TokenService.getToken()) {
+    next("/admin/dashboard");
+  } else next();
+};
+
 const routes = [
   {
     path: "/",
@@ -22,8 +30,12 @@ const routes = [
     component: AdminLayout,
 
     children: [
-      { path: "", component: AuthForm },
-      { path: "signup", component: AuthSignup },
+      { path: "", component: AuthForm, beforeEnter: redirectToAdminDashboard },
+      {
+        path: "signup",
+        component: AuthSignup,
+        beforeEnter: redirectToAdminDashboard,
+      },
       {
         path: "dashboard",
         component: AdminDashboard,
@@ -56,7 +68,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.protected) next({ path: "/admin" });
+  if (to.meta.protected && !TokenService.getToken()) next({ path: "/admin" });
   else next();
 });
 

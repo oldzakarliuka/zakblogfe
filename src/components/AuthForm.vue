@@ -1,6 +1,11 @@
 <template>
   <div class="auth">
     <form class="form auth-form" @submit.prevent="signin">
+      <ul class="errors">
+        <li v-for="err in errors" :key="err" class="error">
+          {{ err }}
+        </li>
+      </ul>
       <div class="form__row">
         <input
           id="login"
@@ -27,8 +32,10 @@
 </template>
 <script>
 import api from "../service/api.service";
+import TokenService from "../service/storage.service";
 
 export default {
+  name: "auth-signin",
   data() {
     return {
       errors: [],
@@ -37,49 +44,49 @@ export default {
     };
   },
   methods: {
+    clearInputs() {
+      this.login = "";
+      this.password = "";
+    },
+    checkForm() {
+      this.errors = [];
+      const requiredStr = (label) => `${label} are required`;
+      const minLengthStr = (label, count) =>
+        `${label} must be at least ${count} characters`;
+      if (!this.password) {
+        this.errors.push(requiredStr("Password"));
+      }
+      if (!this.login) {
+        this.errors.push(requiredStr("Login"));
+      }
+      if (this.password.length < 6) {
+        this.errors.push(minLengthStr("Password", 6));
+      }
+      return this.errors.length;
+    },
     signin() {
+      if (this.checkForm()) return;
       api()
         .post("auth/signin", {
           login: this.login,
           password: this.password,
         })
-        .then((res) => console.log(res))
+        .then((res) => {
+          TokenService.saveToken(res.token);
+          this.$router.push("/admin/dashboard");
+        })
         .catch((err) => {
-          console.log(err);
+          if ([404, 401].includes(err.response.status)) {
+            this.errors.push("Incorrect username or password");
+            setTimeout(() => (this.errors = []), 5000);
+            this.clearInputs();
+          }
         });
     },
   },
 };
 </script>
 <style lang="scss">
-.auth {
-  height: 100%;
-  position: absolute;
-  width: 100%;
-  background-color: #f0f2f5;
-  display: flex;
-  justify-content: center;
-}
-.form {
-  min-width: 320px;
-  padding: 40px 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  border-radius: 5px;
-  margin: auto;
-  text-align: center;
-  &__row {
-    display: flex;
-    margin: 10px auto;
-  }
-  &__input {
-    font-size: 20px;
-    border-radius: 5px;
-    padding: 8px 10px;
-    width: 100%;
-    border: 1px solid #dddfe2;
-  }
-}
 .btn {
   display: block;
   width: 100%;

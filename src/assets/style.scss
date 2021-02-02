@@ -6,6 +6,7 @@
 body {
   padding: 0;
   margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .btn {
@@ -39,4 +40,54 @@ body {
 
 .content {
   min-height: 100vh;
+}
+
+.errors {
+  margin: 0 0 10px;
+  padding: 0;
+  list-style-type: none;
+
+  .error {
+    padding: 5px 0;
+    color: #ec4646;
+  }
+}
+
+.auth {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  background-color: #f0f2f5;
+  display: flex;
+  justify-content: center;
+}
+.form {
+  min-width: 320px;
+  padding: 40px 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 5px;
+  margin: auto;
+  text-align: center;
+  &__row {
+    display: flex;
+    margin: 10px auto;
+  }
+  &__input {
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 8px 10px;
+    width: 100%;
+    border: 1px solid #dddfe2;
+  }
+}
+
+a,
+a:visited,
+a:active {
+  color: inherit;
+}
+
+a:hover {
+  color: #51c2d5;
 }
