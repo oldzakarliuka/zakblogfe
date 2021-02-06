@@ -51,16 +51,14 @@ export default {
     ...mapGetters(["getPosts", "getEditPost"]),
   },
   mounted() {
-    if (!this.getPosts.length) {
-      api()
-        .get("post")
-        .then((res) => {
-          this.fetchPosts(res);
-        })
-        .catch(() => {
-          alert("Ooops smth wrong! \n Try to reload the page!");
-        });
-    }
+    api()
+      .get("post")
+      .then((res) => {
+        this.fetchPosts(res);
+      })
+      .catch(() => {
+        alert("Ooops smth wrong! \n Try to reload the page!");
+      });
   },
 };
 </script>
