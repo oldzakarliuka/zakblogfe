@@ -7,8 +7,12 @@ module.exports = {
     appleMobileWebAppStatusBarStyle: "black-translucent",
 
     manifestOptions: {
-      display: "landscape",
       background_color: "#42B883",
+    },
+
+    workboxPluginMode: "InjectManifest",
+    workboxOptions: {
+      swSrc: "public/service-worker.js",
     },
   },
 };
