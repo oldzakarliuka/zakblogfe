@@ -50,33 +50,10 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-.posts {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-}
-
+<style lang="scss" scoped>
 .post__thumb {
   height: 200px;
   width: 100%;
-}
-
-.post__del {
-  position: absolute;
-  top: 0;
-  right: 0;
-  opacity: 0;
-  transition: 0.2s ease-in;
-  width: 40px;
-  height: 40px;
-  font-size: 24px;
-  border: 1px solid transparent;
-  background-color: rgba(0, 0, 0, 0.3);
-  color: #fff;
-  cursor: pointer;
-  &:hover {
-    background-color: #000;
-  }
 }
 
 .post {
@@ -87,23 +64,5 @@ export default {
   align-items: center;
   cursor: pointer;
   transition: 0.3s ease-in;
-
-  &:hover {
-    .post__del {
-      opacity: 1;
-    }
-    &::before {
-      content: "";
-      display: block;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.3);
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
-  }
 }
 </style>

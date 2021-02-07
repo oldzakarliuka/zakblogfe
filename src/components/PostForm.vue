@@ -66,7 +66,6 @@ export default {
   mounted() {
     if (this.$route.params.id) {
       const post = this.getEditPost;
-      console.log(post.content);
       this.content = post.content;
       this.file = post.thumb;
       this.title = post.title;
@@ -116,7 +115,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .form__group {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

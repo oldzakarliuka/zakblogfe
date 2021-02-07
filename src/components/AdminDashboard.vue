@@ -62,12 +62,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-.posts {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-}
-
+<style lang="scss" scoped>
 .post__thumb {
   height: 200px;
   width: 100%;

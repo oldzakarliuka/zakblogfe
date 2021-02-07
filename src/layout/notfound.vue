@@ -8,4 +8,4 @@ export default {
   name: "notfound",
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss" scoped></style>
