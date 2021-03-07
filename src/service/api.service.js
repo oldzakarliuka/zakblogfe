@@ -1,27 +1,19 @@
-import axios from "axios";
-import TokenService from "./storage.service";
+import http from "./http.service";
 
-export default ({ requiresAuth = false } = {}) => {
-  const options = {};
-  options.baseURL = "https://whyzakblog.herokuapp.com/v1";
+export const loadPosts = () => {
+  return http().get("post");
+};
 
-  if (requiresAuth) {
-    options.headers = {
-      Authorization: `Bearer ${TokenService.getToken()}`,
-    };
-  }
-  const instance = axios.create(options);
+export const loadPost = (id) => {
+  return http().get(`post/${id}`);
+};
 
-  instance.interceptors.response.use(
-    (response) => {
-      return response.data;
-    },
-    (error) => {
-      if (error.response.status === 401) {
-        TokenService.removeToken();
-      }
-      return Promise.reject(error);
-    }
-  );
-  return instance;
+export const delPost = (id) => {
+  return http({ requiresAuth: true }).delete(`post/${id}`, {
+    crossdomain: true,
+  });
+};
+
+export const savePost = (url, payload) => {
+  return http({ requiresAuth: true }).post(url, payload);
 };

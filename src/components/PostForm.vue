@@ -42,8 +42,7 @@
 </template>
 <script>
 import Editor from "./Editor.vue";
-import api from "../service/api.service";
-import { mapGetters } from "vuex";
+import { loadPost, savePost } from "../service/api.service";
 
 export default {
   name: "PostForm",
@@ -63,9 +62,10 @@ export default {
       postId: null,
     };
   },
-  mounted() {
-    if (this.$route.params.id) {
-      const post = this.getEditPost;
+  async mounted() {
+    const { id } = this.$route.params;
+    if (id) {
+      const post = await loadPost(id);
       this.content = post.content;
       this.file = post.thumb;
       this.title = post.title;
@@ -92,7 +92,7 @@ export default {
       if (!this.title) this.error = "Titile are required!";
       return this.error;
     },
-    sendPost() {
+    async sendPost() {
       if (this.checkForm()) return;
 
       const payload = {
@@ -102,16 +102,16 @@ export default {
         content: this.content,
       };
       const url = `post${this.$route.params.id ? "/update" : "/create"}`;
-      api({ requiresAuth: true })
-        .post(url, payload)
-        .then(() => {
-          this.$router.push("dashboard");
-        })
-        .catch(() => alert("Ooops smth wrong! \n Try to reload the page!"));
+      try {
+        await savePost(url, payload);
+        this.$router.push("/admin/dashboard");
+      } catch (e) {
+        console.error(e);
+        alert(
+          "Ooops! Something went wrong! Please reload the page and try again!"
+        );
+      }
     },
-  },
-  computed: {
-    ...mapGetters(["getEditPost"]),
   },
 };
 </script>

@@ -4,21 +4,9 @@
   </div>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex";
-
 export default {
   name: "App",
   components: {},
-  methods: {
-    ...mapActions(["fetchPosts"]),
-  },
-  computed: {
-    ...mapGetters([
-      "getPosts",
-      "getSelectedPost",
-      // ...
-    ]),
-  },
 };
 </script>
 
