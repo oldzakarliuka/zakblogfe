@@ -1,5 +1,5 @@
 import axios from "axios";
-import TokenService from "./storage.service";
+import { TokenService } from "./storage.service";
 
 export default ({ requiresAuth = false } = {}) => {
   const options = {};

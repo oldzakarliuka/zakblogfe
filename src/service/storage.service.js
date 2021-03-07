@@ -1,5 +1,6 @@
 const TOKEN_KEY = "JWT_TOKEN";
-const TokenService = {
+const THEME = "theme";
+export const TokenService = {
   getToken() {
     return localStorage.getItem(TOKEN_KEY);
   },
@@ -13,4 +14,14 @@ const TokenService = {
   },
 };
 
-export default TokenService;
+export const ThemeService = {
+  getTheme() {
+    return localStorage.getItem(THEME);
+  },
+  setTheme(color) {
+    localStorage.setItem(THEME, color);
+  },
+  removeTheme() {
+    localStorage.removeItem(THEME);
+  },
+};

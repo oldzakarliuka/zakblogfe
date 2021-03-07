@@ -137,3 +137,13 @@ a:hover {
     }
   }
 }
+
+.dark {
+  background-color: #333;
+  min-height: 100vh;
+  color: #fff;
+  border-color: #fff;
+  .header {
+    background-color: #1877f2;
+  }
+}
