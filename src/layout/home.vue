@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <div class="header">
-      <router-link to="/" class="header__logo">{{ AppName }}</router-link>
-    </div>
-    <router-view></router-view>
+  <div class="header">
+    <router-link to="/" class="header__logo">{{ AppName }}</router-link>
   </div>
+  <router-view></router-view>
 </template>
 <script>
 export default {

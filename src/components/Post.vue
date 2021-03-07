@@ -1,27 +1,31 @@
 <template>
-  <article class="article">
-    <h1>{{ this.getSelectedPost.title }}</h1>
-    <p>
-      {{ this.getSelectedPost.user_name }} ({{
-        this.getSelectedPost.user_login
-      }})
-    </p>
-    <div class="article__thumb" v-if="this.getSelectedPost.thumb">
-      <img
-        :src="this.getSelectedPost.thumb"
-        :alt="this.getSelectedPost.title"
-        class="response-img "
-      />
-    </div>
-    <div v-html="this.getSelectedPost.content"></div>
-  </article>
+  <div class="wrapper">
+    <article class="article" v-if="post">
+      <h1>{{ post.title }}</h1>
+      <p>{{ post.user_name }} ({{ post.user_login }})</p>
+      <div class="article__thumb" v-if="post.thumb">
+        <img :src="post.thumb" :alt="post.title" class="response-img" />
+      </div>
+      <div v-html="post.content"></div>
+    </article>
+    <spinnerVue v-else />
+  </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { loadPost } from "../service/api.service";
+import spinnerVue from "./spinner.vue";
+
 export default {
   name: "home-post",
-  computed: {
-    ...mapGetters(["getSelectedPost"]),
+  components: { spinnerVue },
+  data() {
+    return {
+      post: null,
+    };
+  },
+  async mounted() {
+    const { id } = this.$route.params;
+    this.post = await loadPost(id);
   },
 };
 </script>
@@ -34,5 +38,9 @@ export default {
 }
 .response-img {
   height: 100%;
+}
+.wrapper {
+  display: flex;
+  min-height: calc(100vh - 62px);
 }
 </style>

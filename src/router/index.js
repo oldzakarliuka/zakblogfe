@@ -9,7 +9,6 @@ import AdminLayout from "../layout/admin.vue";
 import HomeLayout from "../layout/home.vue";
 import NotFound from "../layout/notfound.vue";
 import TokenService from "../service/storage.service";
-import store from "../store";
 
 const redirectToAdminDashboard = (to, from, next) => {
   if (TokenService.getToken()) {
@@ -26,10 +25,6 @@ const routes = [
       {
         path: "post/:id",
         component: Post,
-        beforeEnter: (to, from, next) => {
-          if (!store.getters.getSelectedPost) next("/");
-          else next();
-        },
       },
     ],
   },
@@ -63,10 +58,6 @@ const routes = [
         component: PostForm,
         meta: {
           protected: true,
-        },
-        beforeEnter: (to, from, next) => {
-          if (!store.getters.getEditPost) next("/");
-          else next();
         },
       },
     ],

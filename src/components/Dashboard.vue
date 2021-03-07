@@ -2,7 +2,7 @@
   <div class="posts">
     <div
       class="post"
-      v-for="{ title, thumb, id } of getPosts"
+      v-for="{ title, thumb, id } of posts"
       :key="title + id"
       @click="navigateTo(id)"
     >
@@ -17,35 +17,30 @@
   </div>
 </template>
 <script>
-import api from "../service/api.service";
-import { mapActions, mapGetters, mapMutations } from "vuex";
-import { PICK_POST, UPDATE_POSTS } from "../store/mutations";
+import { loadPosts } from "../service/api.service";
 export default {
   name: "home-dashboard",
+  data() {
+    return {
+      posts: [],
+    };
+  },
   methods: {
-    ...mapActions(["fetchPosts"]),
-    ...mapMutations([PICK_POST, UPDATE_POSTS]),
     navigateTo(id) {
-      const post = this.getPosts.find((post) => post.id === id);
-      this[PICK_POST](post);
       this.$router.push({
         path: `/post/${id}`,
       });
     },
   },
-  computed: {
-    ...mapGetters(["getPosts"]),
-  },
-  mounted() {
-    if (!this.getPosts.length) {
-      api()
-        .get("post")
-        .then((res) => {
-          this.fetchPosts(res);
-        })
-        .catch(() => {
-          alert("Ooops smth wrong! \n Try to reload the page!");
-        });
+
+  async mounted() {
+    try {
+      this.posts = await loadPosts();
+    } catch (e) {
+      console.error(e);
+      alert(
+        "Ooops! Something went wrong! Please reload the page and try again!"
+      );
     }
   },
 };

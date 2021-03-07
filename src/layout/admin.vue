@@ -1,6 +1,9 @@
 <template>
   <div class="header">
-    <router-link to="/admin" class="header__logo">admin</router-link>
+    <div>
+      <router-link to="/" class="header__logo logo">Why</router-link>
+      <router-link to="/admin" class="header__logo logo">admin</router-link>
+    </div>
     <menu>
       <router-link
         v-for="link of links"
@@ -39,5 +42,11 @@ export default {
 <style lang="scss" scoped>
 .header {
   justify-content: space-between;
+}
+.logo {
+  padding: 0;
+  &:first-child {
+    padding: 0 0 0 10px;
+  }
 }
 </style>
