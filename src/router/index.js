@@ -8,7 +8,7 @@ import PostForm from "../components/PostForm.vue";
 import AdminLayout from "../layout/admin.vue";
 import HomeLayout from "../layout/home.vue";
 import NotFound from "../layout/notfound.vue";
-import TokenService from "../service/storage.service";
+import { TokenService } from "../service/storage.service";
 
 const redirectToAdminDashboard = (to, from, next) => {
   if (TokenService.getToken()) {

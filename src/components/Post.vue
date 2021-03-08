@@ -3,6 +3,7 @@
     <article class="article" v-if="post">
       <h1>{{ post.title }}</h1>
       <p>{{ post.user_name }} ({{ post.user_login }})</p>
+      <small>{{ normalizeDate(post.created_at) }}</small>
       <div class="article__thumb" v-if="post.thumb">
         <img :src="post.thumb" :alt="post.title" class="response-img" />
       </div>
@@ -26,6 +27,11 @@ export default {
   async mounted() {
     const { id } = this.$route.params;
     this.post = await loadPost(id);
+  },
+  methods: {
+    normalizeDate(date) {
+      return new Date(date).toLocaleString();
+    },
   },
 };
 </script>

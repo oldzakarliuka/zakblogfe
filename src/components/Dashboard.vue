@@ -49,15 +49,30 @@ export default {
 .post__thumb {
   height: 200px;
   width: 100%;
+  border-radius: 40px 40px 0 0;
+}
+
+.posts {
+  margin: 20px 0 0;
+  gap: 20px;
 }
 
 .post {
   position: relative;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
   cursor: pointer;
+  border-radius: 40px;
   transition: 0.3s ease-in;
+  box-shadow: -6px -6px 20px rgba(255, 255, 255, 1),
+    6px 6px 20px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    box-shadow: inset -6px -6px 20px rgba(255, 255, 255, 0.5),
+      inset 6px 6px 20px rgba(0, 0, 0, 0.1);
+  }
 }
 </style>
