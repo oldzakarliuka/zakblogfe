@@ -32,7 +32,7 @@
 </template>
 <script>
 import api from "../service/http.service";
-import TokenService from "../service/storage.service";
+import { TokenService } from "../service/storage.service";
 
 export default {
   name: "auth-signin",
@@ -72,11 +72,12 @@ export default {
           password: this.password,
         })
         .then((res) => {
+          console.log(res);
           TokenService.saveToken(res.token);
           this.$router.push("/admin/dashboard");
         })
         .catch((err) => {
-          if ([404, 401].includes(err.response.status)) {
+          if ([404, 401].includes(err.response?.status)) {
             this.errors.push("Incorrect username or password");
             setTimeout(() => (this.errors = []), 5000);
             this.clearInputs();

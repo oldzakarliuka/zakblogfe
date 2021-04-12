@@ -17,7 +17,7 @@ export default ({ requiresAuth = false } = {}) => {
       return response.data;
     },
     (error) => {
-      if (error.response.status === 401) {
+      if (error.response?.status === 401) {
         TokenService.removeToken();
       }
       return Promise.reject(error);

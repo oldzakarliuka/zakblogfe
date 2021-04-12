@@ -127,7 +127,7 @@ export default {
           this.$router.push("/admin/dashboard");
         })
         .catch((err) => {
-          if (err.response.status === 422) {
+          if (err.response?.status === 422) {
             this.errors = [err.response.data.error];
             setTimeout(() => (this.errors = []), 5000);
             this.clearInputs();
